@@ -1,4 +1,5 @@
 using OurProject.Components;
+using OurProject.Data;
 
 namespace OurProject
 {
@@ -11,6 +12,9 @@ namespace OurProject
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+           
+            builder.Services.AddSingleton<MongoDBContext>(sp =>
+            new MongoDBContext(builder.Configuration.GetConnectionString("MongoDB")));
 
             var app = builder.Build();
 
@@ -26,6 +30,8 @@ namespace OurProject
 
             app.UseStaticFiles();
             app.UseAntiforgery();
+
+            app.MapControllers();
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
