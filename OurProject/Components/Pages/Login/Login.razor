@@ -1,10 +1,58 @@
 ﻿@page "/Login"
-<PageTitle>Login</PageTitle>
+@using OurProject.Data.Models;
+@inject HttpClient HttpClient
+@inject NavigationManager Navigation
+@using OurProject.Controllers;
 
-<h3>Login</h3>
-<p>Login form will be here</p>
-<p>Don't have an account? Create one <a href="/Register">here</a></p>
+<PageTitle>Login</PageTitle>
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+    <h3>Login</h3>
+    <form id="userLogin">
+        <label for="usernameInput">Username</label>
+        <input id="usernameInput" type="text" @bind="username" />
+        <br />
+        <br />
+        <label for="passwordInput">Password</label>
+        <input id="passwordInput" type="password" @bind="password" />
+        <br />
+        <br />
+        <label for="emailInput">Email</label>
+        <input id="emailInput" type="text" @bind="email" />
+        <br />
+        <br />
+        <button @onclick="NewUser">Submit</button>
+    </form>
+   
+
+    <p>Don't have an account? Create one <a href="/Register">here</a></p>
+    </body>
+</html>
+
 
 @code {
+    string username = "";
+    string email = "";
+    string password = "";
+    string message = "";
 
+    public async Task NewUser()
+    {
+        
+        /*
+        try
+        {
+            User user = new User() { Username = username, Email = email, Password = password};
+            
+        }
+        catch (Exception ex)
+        {
+            message = $"Exception: {ex.Message}";
+            Console.WriteLine(message);
+        }
+        */
+    }
 }

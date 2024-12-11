@@ -4,13 +4,19 @@ namespace OurProject.Data
 {
     public class MongoDBContext
     {
-        private readonly IMongoDatabase Database;
-        public IMongoCollection<User> Users => Database.GetCollection<User>("Users");
-        public MongoDBContext(string connectionString)
+        private readonly IConfiguration configuration;
+        private readonly IMongoDatabase database;
+      
+        public MongoDBContext(IConfiguration configuration)
         {
-            var client = new MongoClient(connectionString);
-            Database = client.GetDatabase("NAME");
+            this.configuration = configuration;
+
+            string connectionString = configuration.GetConnectionString("MongoDB");
+            var mongoUrl = MongoUrl.Create(connectionString);
+            var client = new MongoClient(mongoUrl);
+            database = client.GetDatabase(mongoUrl.DatabaseName);
         }
-        
+        public IMongoDatabase? Database => database;
+       
     }
 }
